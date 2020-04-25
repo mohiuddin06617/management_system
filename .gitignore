@@ -1,3 +1,14 @@
 .idea/*
 storage/framework/*
 storage/logs/*
+/public/hot
+/public/storage
+/storage/*.key
+/vendor
+/storage/debugbar
+/storage/framework
+/storage/users
+
+# Debug Files
+npm-debug.log
+yarn-error.log
