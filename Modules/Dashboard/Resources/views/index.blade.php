@@ -675,7 +675,7 @@
     </section>
 @endsection
 
-@push('js-script')
+@push('scripts')
     <!-- Page Specific JS File -->
 {{--    <script src="{{asset('js/app.js')}}"></script>--}}
         <script src="{{ Module::asset('dashboard:js/dashboard.js') }}"></script>

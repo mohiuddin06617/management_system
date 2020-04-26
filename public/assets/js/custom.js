@@ -6,3 +6,14 @@
  */
 
 "use strict";
+$(document).ready(function () {
+    if ($('.dataTable').length>0){
+        $(".dataTable").dataTable({
+            "columnDefs": [
+                {
+                    "targets": [2,3]
+                }
+            ]
+        });
+    }
+});
