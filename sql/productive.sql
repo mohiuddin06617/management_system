@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Apr 15, 2020 at 06:20 AM
--- Server version: 5.7.29-0ubuntu0.18.04.1
--- PHP Version: 7.2.24-0ubuntu0.18.04.3
+-- Host: localhost
+-- Generation Time: Apr 26, 2020 at 04:43 PM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.4.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -42,7 +42,7 @@ CREATE TABLE `activations` (
 --
 
 INSERT INTO `activations` (`id`, `user_id`, `token`, `ip_address`, `created_at`, `updated_at`) VALUES
-(1, 3, 'bWLVji7YjRNEltVVSGIL9OzrusmSaOqZUBjOtR1Gv9cyEHmMYfcwgWP0ZV59DirB', '0.0.0.0', '2020-04-15 00:11:00', '2020-04-15 00:11:00');
+(1, 2, '8A29B5u6p7rBQaBhJGZud6Tldoq8MEGBFUC2DRs6Hl3bgGUYAFx7HCfJ2fU4djB8', '0.0.0.0', '2020-04-24 02:07:00', '2020-04-24 02:07:00');
 
 -- --------------------------------------------------------
 
@@ -56,7 +56,7 @@ CREATE TABLE `failed_jobs` (
   `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -70,7 +70,7 @@ CREATE TABLE `laravel2step` (
   `userId` bigint(20) UNSIGNED NOT NULL,
   `authCode` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `authCount` int(11) NOT NULL,
-  `authStatus` tinyint(1) NOT NULL DEFAULT '0',
+  `authStatus` tinyint(1) NOT NULL DEFAULT 0,
   `authDate` datetime DEFAULT NULL,
   `requestDate` datetime DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -87,7 +87,7 @@ CREATE TABLE `laravel_blocker` (
   `id` int(10) UNSIGNED NOT NULL,
   `typeId` int(10) UNSIGNED NOT NULL,
   `value` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `note` longtext COLLATE utf8mb4_unicode_ci,
+  `note` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `userId` bigint(20) UNSIGNED DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -99,11 +99,11 @@ CREATE TABLE `laravel_blocker` (
 --
 
 INSERT INTO `laravel_blocker` (`id`, `typeId`, `value`, `note`, `userId`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 3, 'test.com', 'Block all domains/emails @test.com', NULL, '2020-04-15 00:03:48', '2020-04-15 00:14:59', '2020-04-15 00:14:59'),
-(2, 3, 'test.ca', 'Block all domains/emails @test.ca', NULL, '2020-04-15 00:03:48', '2020-04-15 00:15:12', '2020-04-15 00:15:12'),
-(3, 3, 'fake.com', 'Block all domains/emails @fake.com', NULL, '2020-04-15 00:03:48', '2020-04-15 00:15:17', '2020-04-15 00:15:17'),
-(4, 3, 'example.com', 'Block all domains/emails @example.com', NULL, '2020-04-15 00:03:48', '2020-04-15 00:15:23', '2020-04-15 00:15:23'),
-(5, 3, 'mailinator.com', 'Block all domains/emails @mailinator.com', NULL, '2020-04-15 00:03:48', '2020-04-15 00:03:48', NULL);
+(1, 3, 'test.com', 'Block all domains/emails @test.com', NULL, '2020-04-24 01:42:49', '2020-04-24 01:42:49', NULL),
+(2, 3, 'test.ca', 'Block all domains/emails @test.ca', NULL, '2020-04-24 01:42:49', '2020-04-24 01:42:49', NULL),
+(3, 3, 'fake.com', 'Block all domains/emails @fake.com', NULL, '2020-04-24 01:42:49', '2020-04-24 01:42:49', NULL),
+(4, 3, 'example.com', 'Block all domains/emails @example.com', NULL, '2020-04-24 01:42:49', '2020-04-24 01:42:49', NULL),
+(5, 3, 'mailinator.com', 'Block all domains/emails @mailinator.com', NULL, '2020-04-24 01:42:49', '2020-04-24 01:42:49', NULL);
 
 -- --------------------------------------------------------
 
@@ -125,16 +125,16 @@ CREATE TABLE `laravel_blocker_types` (
 --
 
 INSERT INTO `laravel_blocker_types` (`id`, `slug`, `name`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'email', 'E-mail', '2020-04-15 00:03:45', '2020-04-15 00:03:45', NULL),
-(2, 'ipAddress', 'IP Address', '2020-04-15 00:03:45', '2020-04-15 00:03:45', NULL),
-(3, 'domain', 'Domain Name', '2020-04-15 00:03:46', '2020-04-15 00:03:46', NULL),
-(4, 'user', 'User', '2020-04-15 00:03:46', '2020-04-15 00:03:46', NULL),
-(5, 'city', 'City', '2020-04-15 00:03:46', '2020-04-15 00:03:46', NULL),
-(6, 'state', 'State', '2020-04-15 00:03:46', '2020-04-15 00:03:46', NULL),
-(7, 'country', 'Country', '2020-04-15 00:03:47', '2020-04-15 00:03:47', NULL),
-(8, 'countryCode', 'Country Code', '2020-04-15 00:03:47', '2020-04-15 00:03:47', NULL),
-(9, 'continent', 'Continent', '2020-04-15 00:03:47', '2020-04-15 00:03:47', NULL),
-(10, 'region', 'Region', '2020-04-15 00:03:47', '2020-04-15 00:03:47', NULL);
+(1, 'email', 'E-mail', '2020-04-24 01:42:48', '2020-04-24 01:42:48', NULL),
+(2, 'ipAddress', 'IP Address', '2020-04-24 01:42:48', '2020-04-24 01:42:48', NULL),
+(3, 'domain', 'Domain Name', '2020-04-24 01:42:48', '2020-04-24 01:42:48', NULL),
+(4, 'user', 'User', '2020-04-24 01:42:48', '2020-04-24 01:42:48', NULL),
+(5, 'city', 'City', '2020-04-24 01:42:48', '2020-04-24 01:42:48', NULL),
+(6, 'state', 'State', '2020-04-24 01:42:49', '2020-04-24 01:42:49', NULL),
+(7, 'country', 'Country', '2020-04-24 01:42:49', '2020-04-24 01:42:49', NULL),
+(8, 'countryCode', 'Country Code', '2020-04-24 01:42:49', '2020-04-24 01:42:49', NULL),
+(9, 'continent', 'Continent', '2020-04-24 01:42:49', '2020-04-24 01:42:49', NULL),
+(10, 'region', 'Region', '2020-04-24 01:42:49', '2020-04-24 01:42:49', NULL);
 
 -- --------------------------------------------------------
 
@@ -147,11 +147,11 @@ CREATE TABLE `laravel_logger_activity` (
   `description` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `userType` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `userId` int(11) DEFAULT NULL,
-  `route` longtext COLLATE utf8mb4_unicode_ci,
+  `route` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `ipAddress` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `userAgent` text COLLATE utf8mb4_unicode_ci,
+  `userAgent` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `locale` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `referer` longtext COLLATE utf8mb4_unicode_ci,
+  `referer` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `methodType` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -163,65 +163,53 @@ CREATE TABLE `laravel_logger_activity` (
 --
 
 INSERT INTO `laravel_logger_activity` (`id`, `description`, `userType`, `userId`, `route`, `ipAddress`, `userAgent`, `locale`, `referer`, `methodType`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Logged In', 'Registered', 1, 'http://127.0.0.1:8001/login', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8001/login', 'POST', '2020-04-15 00:08:40', '2020-04-15 00:08:40', NULL),
-(2, 'Viewed home', 'Registered', 1, 'http://127.0.0.1:8001/home', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8001/login', 'GET', '2020-04-15 00:08:41', '2020-04-15 00:08:41', NULL),
-(3, 'Logged Out', 'Registered', 1, 'http://127.0.0.1:8001/logout', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8001/roles', 'POST', '2020-04-15 00:10:00', '2020-04-15 00:10:00', NULL),
-(4, 'Logged In', 'Registered', 3, 'http://127.0.0.1:8001/login', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8001/login', 'POST', '2020-04-15 00:11:18', '2020-04-15 00:11:18', NULL),
-(5, 'Viewed activation-required', 'Registered', 3, 'http://127.0.0.1:8001/activation-required', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8001/login', 'GET', '2020-04-15 00:11:18', '2020-04-15 00:11:18', NULL),
-(6, 'Viewed activation-required', 'Registered', 3, 'http://127.0.0.1:8001/activation-required', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8001/', 'GET', '2020-04-15 00:12:06', '2020-04-15 00:12:06', NULL),
-(7, 'Viewed activation-required', 'Registered', 3, 'http://127.0.0.1:8001/activation-required', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', NULL, 'GET', '2020-04-15 00:12:21', '2020-04-15 00:12:21', NULL),
-(8, 'Logged Out', 'Registered', 3, 'http://127.0.0.1:8001/logout', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8001/activation-required', 'POST', '2020-04-15 00:12:25', '2020-04-15 00:12:25', NULL),
-(9, 'Logged In', 'Registered', 1, 'http://127.0.0.1:8001/login', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8001/login', 'POST', '2020-04-15 00:13:27', '2020-04-15 00:13:27', NULL),
-(10, 'Viewed home', 'Registered', 1, 'http://127.0.0.1:8001/home', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8001/login', 'GET', '2020-04-15 00:13:27', '2020-04-15 00:13:27', NULL),
-(11, 'Viewed users', 'Registered', 1, 'http://127.0.0.1:8001/users', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8001/roles', 'GET', '2020-04-15 00:14:15', '2020-04-15 00:14:15', NULL),
-(12, 'Viewed users/3/edit', 'Registered', 1, 'http://127.0.0.1:8001/users/3/edit', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8001/users', 'GET', '2020-04-15 00:14:19', '2020-04-15 00:14:19', NULL),
-(13, 'Viewed logs', 'Registered', 1, 'http://127.0.0.1:8001/logs', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8001/users', 'GET', '2020-04-15 00:14:30', '2020-04-15 00:14:30', NULL),
-(14, 'Viewed activity', 'Registered', 1, 'http://127.0.0.1:8001/activity', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8001/logs', 'GET', '2020-04-15 00:14:35', '2020-04-15 00:14:35', NULL),
-(15, 'Viewed active-users', 'Registered', 1, 'http://127.0.0.1:8001/active-users', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8001/logs', 'GET', '2020-04-15 00:14:41', '2020-04-15 00:14:41', NULL),
-(16, 'Viewed blocker', 'Registered', 1, 'http://127.0.0.1:8001/blocker', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8001/active-users', 'GET', '2020-04-15 00:14:51', '2020-04-15 00:14:51', NULL),
-(17, 'Viewed blocker/1/edit', 'Registered', 1, 'http://127.0.0.1:8001/blocker/1/edit', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8001/blocker', 'GET', '2020-04-15 00:14:54', '2020-04-15 00:14:54', NULL),
-(18, 'Deleted blocker/1', 'Registered', 1, 'http://127.0.0.1:8001/blocker/1', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8001/blocker/1/edit', 'DELETE', '2020-04-15 00:14:59', '2020-04-15 00:14:59', NULL),
-(19, 'Viewed blocker', 'Registered', 1, 'http://127.0.0.1:8001/blocker', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8001/blocker/1/edit', 'GET', '2020-04-15 00:15:00', '2020-04-15 00:15:00', NULL),
-(20, 'Deleted blocker/2', 'Registered', 1, 'http://127.0.0.1:8001/blocker/2', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8001/blocker', 'DELETE', '2020-04-15 00:15:12', '2020-04-15 00:15:12', NULL),
-(21, 'Viewed blocker', 'Registered', 1, 'http://127.0.0.1:8001/blocker', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8001/blocker', 'GET', '2020-04-15 00:15:12', '2020-04-15 00:15:12', NULL),
-(22, 'Deleted blocker/3', 'Registered', 1, 'http://127.0.0.1:8001/blocker/3', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8001/blocker', 'DELETE', '2020-04-15 00:15:16', '2020-04-15 00:15:16', NULL),
-(23, 'Viewed blocker', 'Registered', 1, 'http://127.0.0.1:8001/blocker', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8001/blocker', 'GET', '2020-04-15 00:15:17', '2020-04-15 00:15:17', NULL),
-(24, 'Deleted blocker/4', 'Registered', 1, 'http://127.0.0.1:8001/blocker/4', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8001/blocker', 'DELETE', '2020-04-15 00:15:23', '2020-04-15 00:15:23', NULL),
-(25, 'Viewed blocker', 'Registered', 1, 'http://127.0.0.1:8001/blocker', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8001/blocker', 'GET', '2020-04-15 00:15:24', '2020-04-15 00:15:24', NULL),
-(26, 'Viewed blocker/5/edit', 'Registered', 1, 'http://127.0.0.1:8001/blocker/5/edit', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8001/blocker', 'GET', '2020-04-15 00:15:27', '2020-04-15 00:15:27', NULL),
-(27, 'Viewed routes', 'Registered', 1, 'http://127.0.0.1:8001/routes', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8001/blocker', 'GET', '2020-04-15 00:15:38', '2020-04-15 00:15:38', NULL),
-(28, 'Viewed phpinfo', 'Registered', 1, 'http://127.0.0.1:8001/phpinfo', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8001/routes', 'GET', '2020-04-15 00:15:43', '2020-04-15 00:15:43', NULL),
-(29, 'Viewed home', 'Registered', 1, 'http://127.0.0.1:8001/home', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8001/', 'GET', '2020-04-15 00:15:54', '2020-04-15 00:15:54', NULL),
-(30, 'Viewed profile/boyle.meagan', 'Registered', 1, 'http://127.0.0.1:8001/profile/boyle.meagan', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8001/home', 'GET', '2020-04-15 00:15:59', '2020-04-15 00:15:59', NULL),
-(31, 'Viewed profile/boyle.meagan/edit', 'Registered', 1, 'http://127.0.0.1:8001/profile/boyle.meagan/edit', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8001/profile/boyle.meagan', 'GET', '2020-04-15 00:16:01', '2020-04-15 00:16:01', NULL),
-(32, 'Edited profile/boyle.meagan', 'Registered', 1, 'http://127.0.0.1:8001/profile/boyle.meagan', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8001/profile/boyle.meagan/edit', 'PATCH', '2020-04-15 00:17:32', '2020-04-15 00:17:32', NULL),
-(33, 'Viewed profile/boyle.meagan/edit', 'Registered', 1, 'http://127.0.0.1:8001/profile/boyle.meagan/edit', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8001/profile/boyle.meagan/edit', 'GET', '2020-04-15 00:17:33', '2020-04-15 00:17:33', NULL),
-(34, 'Edited profile/boyle.meagan', 'Registered', 1, 'http://127.0.0.1:8001/profile/boyle.meagan', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8001/profile/boyle.meagan/edit', 'PATCH', '2020-04-15 00:17:43', '2020-04-15 00:17:43', NULL),
-(35, 'Viewed profile/boyle.meagan/edit', 'Registered', 1, 'http://127.0.0.1:8001/profile/boyle.meagan/edit', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8001/profile/boyle.meagan/edit', 'GET', '2020-04-15 00:17:44', '2020-04-15 00:17:44', NULL),
-(36, 'Edited profile/boyle.meagan', 'Registered', 1, 'http://127.0.0.1:8001/profile/boyle.meagan', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8001/profile/boyle.meagan/edit', 'PATCH', '2020-04-15 00:17:59', '2020-04-15 00:17:59', NULL),
-(37, 'Viewed profile/boyle.meagan/edit', 'Registered', 1, 'http://127.0.0.1:8001/profile/boyle.meagan/edit', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8001/profile/boyle.meagan/edit', 'GET', '2020-04-15 00:18:00', '2020-04-15 00:18:00', NULL),
-(38, 'Viewed home', 'Registered', 1, 'http://127.0.0.1:8001/home', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8001/', 'GET', '2020-04-15 00:18:05', '2020-04-15 00:18:05', NULL),
-(39, 'Viewed profile/boyle.meagan', 'Registered', 1, 'http://127.0.0.1:8001/profile/boyle.meagan', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8001/home', 'GET', '2020-04-15 00:18:14', '2020-04-15 00:18:14', NULL),
-(40, 'Viewed profile/boyle.meagan/edit', 'Registered', 1, 'http://127.0.0.1:8001/profile/boyle.meagan/edit', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8001/profile/boyle.meagan', 'GET', '2020-04-15 00:18:17', '2020-04-15 00:18:17', NULL),
-(41, 'Created avatar/upload', 'Registered', 1, 'http://127.0.0.1:8001/avatar/upload', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8001/profile/boyle.meagan/edit', 'POST', '2020-04-15 00:18:54', '2020-04-15 00:18:54', NULL),
-(42, 'Viewed images/profile/1/avatar/avatar.jpg', 'Registered', 1, 'http://127.0.0.1:8001/images/profile/1/avatar/avatar.jpg?1586931535698=', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8001/profile/boyle.meagan/edit', 'GET', '2020-04-15 00:18:55', '2020-04-15 00:18:55', NULL),
-(43, 'Created avatar/upload', 'Registered', 1, 'http://127.0.0.1:8001/avatar/upload', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8001/profile/boyle.meagan/edit', 'POST', '2020-04-15 00:19:27', '2020-04-15 00:19:27', NULL),
-(44, 'Viewed images/profile/1/avatar/avatar.jpg', 'Registered', 1, 'http://127.0.0.1:8001/images/profile/1/avatar/avatar.jpg?1586931567949=', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8001/profile/boyle.meagan/edit', 'GET', '2020-04-15 00:19:28', '2020-04-15 00:19:28', NULL),
-(45, 'Viewed home', 'Registered', 1, 'http://127.0.0.1:8001/home', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8001/', 'GET', '2020-04-15 00:19:35', '2020-04-15 00:19:35', NULL),
-(46, 'Viewed images/profile/1/avatar/avatar.jpg', 'Registered', 1, 'http://127.0.0.1:8001/images/profile/1/avatar/avatar.jpg', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8001/home', 'GET', '2020-04-15 00:19:36', '2020-04-15 00:19:36', NULL),
-(47, 'Viewed profile/boyle.meagan', 'Registered', 1, 'http://127.0.0.1:8001/profile/boyle.meagan', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8001/home', 'GET', '2020-04-15 00:19:39', '2020-04-15 00:19:39', NULL),
-(48, 'Viewed images/profile/1/avatar/avatar.jpg', 'Registered', 1, 'http://127.0.0.1:8001/images/profile/1/avatar/avatar.jpg', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8001/profile/boyle.meagan', 'GET', '2020-04-15 00:19:40', '2020-04-15 00:19:40', NULL),
-(49, 'Viewed profile/boyle.meagan/edit', 'Registered', 1, 'http://127.0.0.1:8001/profile/boyle.meagan/edit', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8001/profile/boyle.meagan', 'GET', '2020-04-15 00:19:41', '2020-04-15 00:19:41', NULL),
-(50, 'Viewed images/profile/1/avatar/avatar.jpg', 'Registered', 1, 'http://127.0.0.1:8001/images/profile/1/avatar/avatar.jpg', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8001/profile/boyle.meagan/edit', 'GET', '2020-04-15 00:19:42', '2020-04-15 00:19:42', NULL),
-(51, 'Edited profile/boyle.meagan', 'Registered', 1, 'http://127.0.0.1:8001/profile/boyle.meagan', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8001/profile/boyle.meagan/edit', 'PATCH', '2020-04-15 00:19:55', '2020-04-15 00:19:55', NULL),
-(52, 'Viewed profile/boyle.meagan/edit', 'Registered', 1, 'http://127.0.0.1:8001/profile/boyle.meagan/edit', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8001/profile/boyle.meagan/edit', 'GET', '2020-04-15 00:19:56', '2020-04-15 00:19:56', NULL),
-(53, 'Viewed images/profile/1/avatar/avatar.jpg', 'Registered', 1, 'http://127.0.0.1:8001/images/profile/1/avatar/avatar.jpg', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8001/profile/boyle.meagan/edit', 'GET', '2020-04-15 00:19:57', '2020-04-15 00:19:57', NULL),
-(54, 'Edited profile/boyle.meagan', 'Registered', 1, 'http://127.0.0.1:8001/profile/boyle.meagan', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8001/profile/boyle.meagan/edit', 'PATCH', '2020-04-15 00:20:08', '2020-04-15 00:20:08', NULL),
-(55, 'Viewed profile/boyle.meagan/edit', 'Registered', 1, 'http://127.0.0.1:8001/profile/boyle.meagan/edit', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8001/profile/boyle.meagan/edit', 'GET', '2020-04-15 00:20:09', '2020-04-15 00:20:09', NULL),
-(56, 'Viewed images/profile/1/avatar/avatar.jpg', 'Registered', 1, 'http://127.0.0.1:8001/images/profile/1/avatar/avatar.jpg', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8001/profile/boyle.meagan/edit', 'GET', '2020-04-15 00:20:10', '2020-04-15 00:20:10', NULL),
-(57, 'Viewed home', 'Registered', 1, 'http://127.0.0.1:8001/home', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8001/', 'GET', '2020-04-15 00:20:15', '2020-04-15 00:20:15', NULL),
-(58, 'Viewed images/profile/1/avatar/avatar.jpg', 'Registered', 1, 'http://127.0.0.1:8001/images/profile/1/avatar/avatar.jpg', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8001/home', 'GET', '2020-04-15 00:20:15', '2020-04-15 00:20:15', NULL),
-(59, 'Logged Out', 'Registered', 1, 'http://127.0.0.1:8001/logout', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8001/home', 'POST', '2020-04-15 00:20:17', '2020-04-15 00:20:17', NULL);
+(1, 'Logged In', 'Registered', 2, 'http://127.0.0.1:8000/login', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/80.0.3987.163 Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8000/login', 'POST', '2020-04-24 02:05:32', '2020-04-24 02:05:32', NULL),
+(2, 'Viewed home', 'Registered', 2, 'http://127.0.0.1:8000/home', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/80.0.3987.163 Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8000/login', 'GET', '2020-04-24 02:05:32', '2020-04-24 02:05:32', NULL),
+(3, 'Logged Out', 'Registered', 2, 'http://127.0.0.1:8000/logout', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/80.0.3987.163 Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8000/home', 'POST', '2020-04-24 02:05:42', '2020-04-24 02:05:42', NULL),
+(4, 'Logged In', 'Registered', 1, 'http://127.0.0.1:8000/login', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/80.0.3987.163 Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8000/login', 'POST', '2020-04-24 02:05:56', '2020-04-24 02:05:56', NULL),
+(5, 'Viewed home', 'Registered', 1, 'http://127.0.0.1:8000/home', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/80.0.3987.163 Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8000/login', 'GET', '2020-04-24 02:05:56', '2020-04-24 02:05:56', NULL),
+(6, 'Viewed users', 'Registered', 1, 'http://127.0.0.1:8000/users', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/80.0.3987.163 Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8000/home', 'GET', '2020-04-24 02:06:04', '2020-04-24 02:06:04', NULL),
+(7, 'Viewed users/2/edit', 'Registered', 1, 'http://127.0.0.1:8000/users/2/edit', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/80.0.3987.163 Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8000/users', 'GET', '2020-04-24 02:06:16', '2020-04-24 02:06:16', NULL),
+(8, 'Edited users/2', 'Registered', 1, 'http://127.0.0.1:8000/users/2', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/80.0.3987.163 Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8000/users/2/edit', 'PUT', '2020-04-24 02:06:29', '2020-04-24 02:06:29', NULL),
+(9, 'Viewed users/2/edit', 'Registered', 1, 'http://127.0.0.1:8000/users/2/edit', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/80.0.3987.163 Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8000/users/2/edit', 'GET', '2020-04-24 02:06:31', '2020-04-24 02:06:31', NULL),
+(10, 'Logged Out', 'Registered', 1, 'http://127.0.0.1:8000/logout', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/80.0.3987.163 Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8000/users/2/edit', 'POST', '2020-04-24 02:06:36', '2020-04-24 02:06:36', NULL),
+(11, 'Logged In', 'Registered', 2, 'http://127.0.0.1:8000/login', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/80.0.3987.163 Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8000/login', 'POST', '2020-04-24 02:06:51', '2020-04-24 02:06:51', NULL),
+(12, 'Viewed activation-required', 'Registered', 2, 'http://127.0.0.1:8000/activation-required', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/80.0.3987.163 Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8000/login', 'GET', '2020-04-24 02:06:51', '2020-04-24 02:06:51', NULL),
+(13, 'Viewed activation', 'Registered', 2, 'http://127.0.0.1:8000/activation', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/80.0.3987.163 Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8000/activation-required', 'GET', '2020-04-24 02:06:56', '2020-04-24 02:06:56', NULL),
+(14, 'Logged Out', 'Registered', 2, 'http://127.0.0.1:8000/logout', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/80.0.3987.163 Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://127.0.0.1:8000/activation-required', 'POST', '2020-04-24 02:07:14', '2020-04-24 02:07:14', NULL),
+(15, 'Logged In', 'Registered', 1, 'http://localhost/productive/public/login', '::1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/80.0.3987.163 Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://localhost/productive/public/login', 'POST', '2020-04-25 03:58:09', '2020-04-25 03:58:09', NULL),
+(16, 'Viewed home', 'Registered', 1, 'http://localhost/productive/public/home', '::1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/80.0.3987.163 Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://localhost/productive/public/login', 'GET', '2020-04-25 03:58:09', '2020-04-25 03:58:09', NULL),
+(17, 'Viewed profile/eliseo.hagenes', 'Registered', 1, 'http://localhost/productive/public/profile/eliseo.hagenes', '::1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/80.0.3987.163 Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://localhost/productive/public/home', 'GET', '2020-04-25 03:58:18', '2020-04-25 03:58:18', NULL),
+(18, 'Viewed profile/eliseo.hagenes/edit', 'Registered', 1, 'http://localhost/productive/public/profile/eliseo.hagenes/edit', '::1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/80.0.3987.163 Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://localhost/productive/public/profile/eliseo.hagenes', 'GET', '2020-04-25 03:58:23', '2020-04-25 03:58:23', NULL),
+(19, 'Edited profile/1/updateUserPassword', 'Registered', 1, 'http://localhost/productive/public/profile/1/updateUserPassword', '::1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/80.0.3987.163 Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://localhost/productive/public/profile/eliseo.hagenes/edit', 'PUT', '2020-04-25 03:58:46', '2020-04-25 03:58:46', NULL),
+(20, 'Viewed profile/eliseo.hagenes/edit', 'Registered', 1, 'http://localhost/productive/public/profile/eliseo.hagenes/edit', '::1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/80.0.3987.163 Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://localhost/productive/public/profile/eliseo.hagenes/edit', 'GET', '2020-04-25 03:58:48', '2020-04-25 03:58:48', NULL),
+(21, 'Viewed users', 'Registered', 1, 'http://localhost/productive/public/users', '::1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/80.0.3987.163 Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://localhost/productive/public/profile/eliseo.hagenes/edit', 'GET', '2020-04-25 03:58:52', '2020-04-25 03:58:52', NULL),
+(22, 'Viewed users/2/edit', 'Registered', 1, 'http://localhost/productive/public/users/2/edit', '::1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/80.0.3987.163 Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://localhost/productive/public/users', 'GET', '2020-04-25 03:58:57', '2020-04-25 03:58:57', NULL),
+(23, 'Edited users/2', 'Registered', 1, 'http://localhost/productive/public/users/2', '::1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/80.0.3987.163 Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://localhost/productive/public/users/2/edit', 'PUT', '2020-04-25 03:59:14', '2020-04-25 03:59:14', NULL),
+(24, 'Viewed users/2/edit', 'Registered', 1, 'http://localhost/productive/public/users/2/edit', '::1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/80.0.3987.163 Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://localhost/productive/public/users/2/edit', 'GET', '2020-04-25 03:59:16', '2020-04-25 03:59:16', NULL),
+(25, 'Viewed home', 'Registered', 1, 'http://localhost/productive/public/home', '::1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/80.0.3987.163 Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://localhost/productive/public/', 'GET', '2020-04-25 03:59:22', '2020-04-25 03:59:22', NULL),
+(26, 'Logged Out', 'Registered', 1, 'http://localhost/productive/public/logout', '::1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/80.0.3987.163 Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://localhost/productive/public/home', 'POST', '2020-04-25 03:59:28', '2020-04-25 03:59:28', NULL),
+(27, 'Logged In', 'Registered', 1, 'http://localhost/productive/public/login', '::1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/80.0.3987.163 Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://localhost/productive/public/login', 'POST', '2020-04-25 04:02:51', '2020-04-25 04:02:51', NULL),
+(28, 'Viewed home', 'Registered', 1, 'http://localhost/productive/public/home', '::1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/80.0.3987.163 Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://localhost/productive/public/login', 'GET', '2020-04-25 04:02:51', '2020-04-25 04:02:51', NULL),
+(29, 'Logged Out', 'Registered', 1, 'http://localhost/productive/public/logout', '::1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/80.0.3987.163 Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://localhost/productive/public/home', 'POST', '2020-04-25 04:03:10', '2020-04-25 04:03:10', NULL),
+(30, 'Failed Login Attempt', 'Guest', NULL, 'http://localhost/productive/public/login', '::1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/80.0.3987.163 Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://localhost/productive/public/login', 'POST', '2020-04-25 08:24:47', '2020-04-25 08:24:47', NULL),
+(31, 'Failed Login Attempt', 'Guest', NULL, 'http://localhost/productive/public/login', '::1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/80.0.3987.163 Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://localhost/productive/public/login', 'POST', '2020-04-25 08:24:56', '2020-04-25 08:24:56', NULL),
+(32, 'Failed Login Attempt', 'Guest', NULL, 'http://localhost/productive/public/login', '::1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/80.0.3987.163 Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://localhost/productive/public/login', 'POST', '2020-04-25 08:25:01', '2020-04-25 08:25:01', NULL),
+(33, 'Failed Login Attempt', 'Guest', NULL, 'http://localhost/productive/public/login', '::1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/80.0.3987.163 Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://localhost/productive/public/login', 'POST', '2020-04-25 08:25:37', '2020-04-25 08:25:37', NULL),
+(34, 'Logged In', 'Registered', 1, 'http://localhost/productive/public/login', '::1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/80.0.3987.163 Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://localhost/productive/public/login', 'POST', '2020-04-25 08:25:44', '2020-04-25 08:25:44', NULL),
+(35, 'Viewed home', 'Registered', 1, 'http://localhost/productive/public/home', '::1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/80.0.3987.163 Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://localhost/productive/public/login', 'GET', '2020-04-25 08:25:45', '2020-04-25 08:25:45', NULL),
+(36, 'Viewed users', 'Registered', 1, 'http://localhost/productive/public/users', '::1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/80.0.3987.163 Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://localhost/productive/public/blog', 'GET', '2020-04-25 08:58:32', '2020-04-25 08:58:32', NULL),
+(37, 'Viewed users/1/edit', 'Registered', 1, 'http://localhost/productive/public/users/1/edit', '::1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/80.0.3987.163 Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://localhost/productive/public/users', 'GET', '2020-04-25 08:58:38', '2020-04-25 08:58:38', NULL),
+(38, 'Viewed home', 'Registered', 1, 'http://localhost/productive/public/home', '::1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/80.0.3987.163 Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://localhost/productive/public/', 'GET', '2020-04-25 08:58:46', '2020-04-25 08:58:46', NULL),
+(39, 'Viewed themes', 'Registered', 1, 'http://localhost/productive/public/themes', '::1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/80.0.3987.163 Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://localhost/productive/public/home', 'GET', '2020-04-25 08:58:52', '2020-04-25 08:58:52', NULL),
+(40, 'Viewed home', 'Registered', 1, 'http://localhost/productive/public/home', '::1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/80.0.3987.163 Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://localhost/productive/public/', 'GET', '2020-04-25 08:59:13', '2020-04-25 08:59:13', NULL),
+(41, 'Viewed home', 'Registered', 1, 'http://localhost/productive/public/home', '::1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/80.0.3987.163 Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://localhost/productive/public/', 'GET', '2020-04-25 09:00:05', '2020-04-25 09:00:05', NULL),
+(42, 'Viewed logs', 'Registered', 1, 'http://localhost/productive/public/logs', '::1', 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Mobile Safari/537.36', 'en-US,en;q=0.9', 'http://localhost/productive/public/home', 'GET', '2020-04-25 09:00:14', '2020-04-25 09:00:14', NULL),
+(43, 'Viewed routes', 'Registered', 1, 'http://localhost/productive/public/routes', '::1', 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Mobile Safari/537.36', 'en-US,en;q=0.9', 'http://localhost/productive/public/logs', 'GET', '2020-04-25 09:00:28', '2020-04-25 09:00:28', NULL),
+(44, 'Viewed home', 'Registered', 1, 'http://localhost/productive/public/home', '::1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/80.0.3987.163 Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://localhost/productive/public/login', 'GET', '2020-04-25 10:22:48', '2020-04-25 10:22:48', NULL),
+(45, 'Logged In', 'Registered', 1, 'http://localhost/productive/public/login', '::1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/80.0.3987.163 Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://localhost/productive/public/login', 'POST', '2020-04-26 07:53:43', '2020-04-26 07:53:43', NULL),
+(46, 'Viewed home', 'Registered', 1, 'http://localhost/productive/public/home', '::1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/80.0.3987.163 Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', 'http://localhost/productive/public/login', 'GET', '2020-04-26 07:53:44', '2020-04-26 07:53:44', NULL),
+(47, 'Viewed home', 'Registered', 1, 'http://localhost/productive/public/home', '::1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/80.0.3987.163 Chrome/80.0.3987.163 Safari/537.36', 'en-US,en;q=0.9', NULL, 'GET', '2020-04-26 08:42:53', '2020-04-26 08:42:53', NULL);
 
 -- --------------------------------------------------------
 
@@ -255,7 +243,23 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (13, '2017_12_09_070937_create_two_step_auth_table', 1),
 (14, '2019_02_19_032636_create_laravel_blocker_types_table', 1),
 (15, '2019_02_19_045158_create_laravel_blocker_table', 1),
-(16, '2019_08_19_000000_create_failed_jobs_table', 1);
+(16, '2019_08_19_000000_create_failed_jobs_table', 1),
+(17, '2020_04_26_043121_create_notices_table', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `notices`
+--
+
+CREATE TABLE `notices` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` int(10) UNSIGNED NOT NULL,
+  `title` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -292,10 +296,10 @@ CREATE TABLE `permissions` (
 --
 
 INSERT INTO `permissions` (`id`, `name`, `slug`, `description`, `model`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Can View Users', 'view.users', 'Can view users', 'Permission', '2020-04-15 00:03:49', '2020-04-15 00:03:49', NULL),
-(2, 'Can Create Users', 'create.users', 'Can create new users', 'Permission', '2020-04-15 00:03:49', '2020-04-15 00:03:49', NULL),
-(3, 'Can Edit Users', 'edit.users', 'Can edit users', 'Permission', '2020-04-15 00:03:49', '2020-04-15 00:03:49', NULL),
-(4, 'Can Delete Users', 'delete.users', 'Can delete users', 'Permission', '2020-04-15 00:03:49', '2020-04-15 00:03:49', NULL);
+(1, 'Can View Users', 'view.users', 'Can view users', 'Permission', '2020-04-24 01:42:49', '2020-04-24 01:42:49', NULL),
+(2, 'Can Create Users', 'create.users', 'Can create new users', 'Permission', '2020-04-24 01:42:49', '2020-04-24 01:42:49', NULL),
+(3, 'Can Edit Users', 'edit.users', 'Can edit users', 'Permission', '2020-04-24 01:42:49', '2020-04-24 01:42:49', NULL),
+(4, 'Can Delete Users', 'delete.users', 'Can delete users', 'Permission', '2020-04-24 01:42:50', '2020-04-24 01:42:50', NULL);
 
 -- --------------------------------------------------------
 
@@ -317,10 +321,10 @@ CREATE TABLE `permission_role` (
 --
 
 INSERT INTO `permission_role` (`id`, `permission_id`, `role_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 1, 1, '2020-04-15 00:03:50', '2020-04-15 00:03:50', NULL),
-(2, 2, 1, '2020-04-15 00:03:50', '2020-04-15 00:03:50', NULL),
-(3, 3, 1, '2020-04-15 00:03:50', '2020-04-15 00:03:50', NULL),
-(4, 4, 1, '2020-04-15 00:03:51', '2020-04-15 00:03:51', NULL);
+(1, 1, 1, '2020-04-24 01:42:50', '2020-04-24 01:42:50', NULL),
+(2, 2, 1, '2020-04-24 01:42:50', '2020-04-24 01:42:50', NULL),
+(3, 3, 1, '2020-04-24 01:42:50', '2020-04-24 01:42:50', NULL),
+(4, 4, 1, '2020-04-24 01:42:50', '2020-04-24 01:42:50', NULL);
 
 -- --------------------------------------------------------
 
@@ -346,13 +350,13 @@ CREATE TABLE `permission_user` (
 CREATE TABLE `profiles` (
   `id` int(10) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
-  `theme_id` bigint(20) UNSIGNED NOT NULL DEFAULT '1',
+  `theme_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
   `location` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `bio` text COLLATE utf8mb4_unicode_ci,
+  `bio` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `twitter_username` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `github_username` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `avatar` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `avatar_status` tinyint(1) NOT NULL DEFAULT '0',
+  `avatar_status` tinyint(1) NOT NULL DEFAULT 0,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -362,8 +366,8 @@ CREATE TABLE `profiles` (
 --
 
 INSERT INTO `profiles` (`id`, `user_id`, `theme_id`, `location`, `bio`, `twitter_username`, `github_username`, `avatar`, `avatar_status`, `created_at`, `updated_at`) VALUES
-(1, 1, 18, NULL, NULL, NULL, NULL, '/images/profile/1/avatar/avatar.jpg', 1, '2020-04-15 00:04:03', '2020-04-15 00:20:08'),
-(2, 2, 1, NULL, NULL, NULL, NULL, NULL, 0, '2020-04-15 00:04:04', '2020-04-15 00:04:04');
+(1, 1, 1, NULL, NULL, NULL, NULL, NULL, 0, '2020-04-24 01:42:55', '2020-04-24 01:42:55'),
+(2, 2, 1, NULL, NULL, NULL, NULL, NULL, 0, '2020-04-24 01:42:55', '2020-04-24 01:42:55');
 
 -- --------------------------------------------------------
 
@@ -376,7 +380,7 @@ CREATE TABLE `roles` (
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `slug` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `level` int(11) NOT NULL DEFAULT '1',
+  `level` int(11) NOT NULL DEFAULT 1,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
@@ -387,9 +391,9 @@ CREATE TABLE `roles` (
 --
 
 INSERT INTO `roles` (`id`, `name`, `slug`, `description`, `level`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Admin', 'admin', 'Admin Role', 5, '2020-04-15 00:03:50', '2020-04-15 00:03:50', NULL),
-(2, 'User', 'user', 'User Role', 1, '2020-04-15 00:03:50', '2020-04-15 00:03:50', NULL),
-(3, 'Unverified', 'unverified', 'Unverified Role', 0, '2020-04-15 00:03:50', '2020-04-15 00:13:41', NULL);
+(1, 'Admin', 'admin', 'Admin Role', 5, '2020-04-24 01:42:50', '2020-04-24 01:42:50', NULL),
+(2, 'User', 'user', 'User Role', 1, '2020-04-24 01:42:50', '2020-04-24 01:42:50', NULL),
+(3, 'Unverified', 'unverified', 'Unverified Role', 0, '2020-04-24 01:42:50', '2020-04-24 01:42:50', NULL);
 
 -- --------------------------------------------------------
 
@@ -411,9 +415,8 @@ CREATE TABLE `role_user` (
 --
 
 INSERT INTO `role_user` (`id`, `role_id`, `user_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 1, 1, '2020-04-15 00:04:03', '2020-04-15 00:04:03', NULL),
-(2, 2, 2, '2020-04-15 00:04:04', '2020-04-15 00:04:04', NULL),
-(3, 3, 3, '2020-04-15 00:11:00', '2020-04-15 00:11:00', NULL);
+(1, 1, 1, '2020-04-24 01:42:55', '2020-04-24 01:42:55', NULL),
+(4, 2, 2, '2020-04-25 03:59:15', '2020-04-25 03:59:15', NULL);
 
 -- --------------------------------------------------------
 
@@ -441,7 +444,7 @@ CREATE TABLE `themes` (
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `link` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `notes` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `status` tinyint(1) NOT NULL DEFAULT 1,
   `taggable_type` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `taggable_id` bigint(20) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -454,34 +457,34 @@ CREATE TABLE `themes` (
 --
 
 INSERT INTO `themes` (`id`, `name`, `link`, `notes`, `status`, `taggable_type`, `taggable_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Default', 'null', NULL, 1, 'theme', 1, '2020-04-15 00:03:51', '2020-04-15 00:03:57', NULL),
-(2, 'Darkly', 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/darkly/bootstrap.min.css', NULL, 1, 'theme', 2, '2020-04-15 00:03:52', '2020-04-15 00:03:57', NULL),
-(3, 'Cyborg', 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/cyborg/bootstrap.min.css', NULL, 1, 'theme', 3, '2020-04-15 00:03:52', '2020-04-15 00:03:57', NULL),
-(4, 'Cosmo', 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/cosmo/bootstrap.min.css', NULL, 1, 'theme', 4, '2020-04-15 00:03:52', '2020-04-15 00:03:57', NULL),
-(5, 'Cerulean', 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/cerulean/bootstrap.min.css', NULL, 1, 'theme', 5, '2020-04-15 00:03:52', '2020-04-15 00:03:57', NULL),
-(6, 'Flatly', 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/flatly/bootstrap.min.css', NULL, 1, 'theme', 6, '2020-04-15 00:03:53', '2020-04-15 00:03:57', NULL),
-(7, 'Journal', 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/journal/bootstrap.min.css', NULL, 1, 'theme', 7, '2020-04-15 00:03:53', '2020-04-15 00:03:58', NULL),
-(8, 'Lumen', 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/lumen/bootstrap.min.css', NULL, 1, 'theme', 8, '2020-04-15 00:03:53', '2020-04-15 00:03:58', NULL),
-(9, 'Paper', 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/paper/bootstrap.min.css', NULL, 1, 'theme', 9, '2020-04-15 00:03:53', '2020-04-15 00:03:58', NULL),
-(10, 'Readable', 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/readable/bootstrap.min.css', NULL, 1, 'theme', 10, '2020-04-15 00:03:53', '2020-04-15 00:03:58', NULL),
-(11, 'Sandstone', 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/sandstone/bootstrap.min.css', NULL, 1, 'theme', 11, '2020-04-15 00:03:53', '2020-04-15 00:03:58', NULL),
-(12, 'Simplex', 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/simplex/bootstrap.min.css', NULL, 1, 'theme', 12, '2020-04-15 00:03:54', '2020-04-15 00:03:59', NULL),
-(13, 'Slate', 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/slate/bootstrap.min.css', NULL, 1, 'theme', 13, '2020-04-15 00:03:54', '2020-04-15 00:03:59', NULL),
-(14, 'Spacelab', 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/spacelab/bootstrap.min.css', NULL, 1, 'theme', 14, '2020-04-15 00:03:54', '2020-04-15 00:03:59', NULL),
-(15, 'Superhero', 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/superhero/bootstrap.min.css', NULL, 1, 'theme', 15, '2020-04-15 00:03:54', '2020-04-15 00:03:59', NULL),
-(16, 'United', 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/united/bootstrap.min.css', NULL, 1, 'theme', 16, '2020-04-15 00:03:54', '2020-04-15 00:03:59', NULL),
-(17, 'Yeti', 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/yeti/bootstrap.min.css', NULL, 1, 'theme', 17, '2020-04-15 00:03:54', '2020-04-15 00:04:00', NULL),
-(18, 'Bootstrap 4.3.1', 'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css', NULL, 1, 'theme', 18, '2020-04-15 00:03:54', '2020-04-15 00:04:00', NULL),
-(19, 'Materialize', 'https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.css', NULL, 1, 'theme', 19, '2020-04-15 00:03:55', '2020-04-15 00:04:00', NULL),
-(20, 'Material Design for Bootstrap (MDB) 4.8.7', 'https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.7/css/mdb.css', NULL, 1, 'theme', 20, '2020-04-15 00:03:55', '2020-04-15 00:04:00', NULL),
-(21, 'mdbootstrap', 'https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.3.1/css/mdb.min.css', NULL, 1, 'theme', 21, '2020-04-15 00:03:55', '2020-04-15 00:04:00', NULL),
-(22, 'Litera', 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/litera/bootstrap.min.css', NULL, 1, 'theme', 22, '2020-04-15 00:03:55', '2020-04-15 00:04:01', NULL),
-(23, 'Lux', 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/lux/bootstrap.min.css', NULL, 1, 'theme', 23, '2020-04-15 00:03:55', '2020-04-15 00:04:01', NULL),
-(24, 'Materia', 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/materia/bootstrap.min.css', NULL, 1, 'theme', 24, '2020-04-15 00:03:56', '2020-04-15 00:04:01', NULL),
-(25, 'Minty', 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/minty/bootstrap.min.css', NULL, 1, 'theme', 25, '2020-04-15 00:03:56', '2020-04-15 00:04:01', NULL),
-(26, 'Pulse', 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/pulse/bootstrap.min.css', NULL, 1, 'theme', 26, '2020-04-15 00:03:56', '2020-04-15 00:04:02', NULL),
-(27, 'Sketchy', 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/sketchy/bootstrap.min.css', NULL, 1, 'theme', 27, '2020-04-15 00:03:56', '2020-04-15 00:04:02', NULL),
-(28, 'Solar', 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/solar/bootstrap.min.css', NULL, 1, 'theme', 28, '2020-04-15 00:03:56', '2020-04-15 00:04:02', NULL);
+(1, 'Default', 'null', NULL, 1, 'theme', 1, '2020-04-24 01:42:51', '2020-04-24 01:42:53', NULL),
+(2, 'Darkly', 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/darkly/bootstrap.min.css', NULL, 1, 'theme', 2, '2020-04-24 01:42:51', '2020-04-24 01:42:53', NULL),
+(3, 'Cyborg', 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/cyborg/bootstrap.min.css', NULL, 1, 'theme', 3, '2020-04-24 01:42:51', '2020-04-24 01:42:53', NULL),
+(4, 'Cosmo', 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/cosmo/bootstrap.min.css', NULL, 1, 'theme', 4, '2020-04-24 01:42:51', '2020-04-24 01:42:53', NULL),
+(5, 'Cerulean', 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/cerulean/bootstrap.min.css', NULL, 1, 'theme', 5, '2020-04-24 01:42:51', '2020-04-24 01:42:53', NULL),
+(6, 'Flatly', 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/flatly/bootstrap.min.css', NULL, 1, 'theme', 6, '2020-04-24 01:42:51', '2020-04-24 01:42:53', NULL),
+(7, 'Journal', 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/journal/bootstrap.min.css', NULL, 1, 'theme', 7, '2020-04-24 01:42:51', '2020-04-24 01:42:53', NULL),
+(8, 'Lumen', 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/lumen/bootstrap.min.css', NULL, 1, 'theme', 8, '2020-04-24 01:42:51', '2020-04-24 01:42:53', NULL),
+(9, 'Paper', 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/paper/bootstrap.min.css', NULL, 1, 'theme', 9, '2020-04-24 01:42:51', '2020-04-24 01:42:53', NULL),
+(10, 'Readable', 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/readable/bootstrap.min.css', NULL, 1, 'theme', 10, '2020-04-24 01:42:51', '2020-04-24 01:42:54', NULL),
+(11, 'Sandstone', 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/sandstone/bootstrap.min.css', NULL, 1, 'theme', 11, '2020-04-24 01:42:51', '2020-04-24 01:42:54', NULL),
+(12, 'Simplex', 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/simplex/bootstrap.min.css', NULL, 1, 'theme', 12, '2020-04-24 01:42:51', '2020-04-24 01:42:54', NULL),
+(13, 'Slate', 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/slate/bootstrap.min.css', NULL, 1, 'theme', 13, '2020-04-24 01:42:52', '2020-04-24 01:42:54', NULL),
+(14, 'Spacelab', 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/spacelab/bootstrap.min.css', NULL, 1, 'theme', 14, '2020-04-24 01:42:52', '2020-04-24 01:42:54', NULL),
+(15, 'Superhero', 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/superhero/bootstrap.min.css', NULL, 1, 'theme', 15, '2020-04-24 01:42:52', '2020-04-24 01:42:54', NULL),
+(16, 'United', 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/united/bootstrap.min.css', NULL, 1, 'theme', 16, '2020-04-24 01:42:52', '2020-04-24 01:42:54', NULL),
+(17, 'Yeti', 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/yeti/bootstrap.min.css', NULL, 1, 'theme', 17, '2020-04-24 01:42:52', '2020-04-24 01:42:54', NULL),
+(18, 'Bootstrap 4.3.1', 'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css', NULL, 1, 'theme', 18, '2020-04-24 01:42:52', '2020-04-24 01:42:54', NULL),
+(19, 'Materialize', 'https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.css', NULL, 1, 'theme', 19, '2020-04-24 01:42:52', '2020-04-24 01:42:54', NULL),
+(20, 'Material Design for Bootstrap (MDB) 4.8.7', 'https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.7/css/mdb.css', NULL, 1, 'theme', 20, '2020-04-24 01:42:52', '2020-04-24 01:42:54', NULL),
+(21, 'mdbootstrap', 'https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.3.1/css/mdb.min.css', NULL, 1, 'theme', 21, '2020-04-24 01:42:52', '2020-04-24 01:42:54', NULL),
+(22, 'Litera', 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/litera/bootstrap.min.css', NULL, 1, 'theme', 22, '2020-04-24 01:42:52', '2020-04-24 01:42:54', NULL),
+(23, 'Lux', 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/lux/bootstrap.min.css', NULL, 1, 'theme', 23, '2020-04-24 01:42:52', '2020-04-24 01:42:54', NULL),
+(24, 'Materia', 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/materia/bootstrap.min.css', NULL, 1, 'theme', 24, '2020-04-24 01:42:53', '2020-04-24 01:42:55', NULL),
+(25, 'Minty', 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/minty/bootstrap.min.css', NULL, 1, 'theme', 25, '2020-04-24 01:42:53', '2020-04-24 01:42:55', NULL),
+(26, 'Pulse', 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/pulse/bootstrap.min.css', NULL, 1, 'theme', 26, '2020-04-24 01:42:53', '2020-04-24 01:42:55', NULL),
+(27, 'Sketchy', 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/sketchy/bootstrap.min.css', NULL, 1, 'theme', 27, '2020-04-24 01:42:53', '2020-04-24 01:42:55', NULL),
+(28, 'Solar', 'https://maxcdn.bootstrapcdn.com/bootswatch/4.3.1/solar/bootstrap.min.css', NULL, 1, 'theme', 28, '2020-04-24 01:42:53', '2020-04-24 01:42:55', NULL);
 
 -- --------------------------------------------------------
 
@@ -498,7 +501,7 @@ CREATE TABLE `users` (
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `activated` tinyint(1) NOT NULL DEFAULT '0',
+  `activated` tinyint(1) NOT NULL DEFAULT 0,
   `token` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `signup_ip_address` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `signup_confirmation_ip_address` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -516,9 +519,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `first_name`, `last_name`, `email`, `email_verified_at`, `password`, `remember_token`, `activated`, `token`, `signup_ip_address`, `signup_confirmation_ip_address`, `signup_sm_ip_address`, `admin_ip_address`, `updated_ip_address`, `deleted_ip_address`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'boyle.meagan', 'Kiana', 'Cruickshank', 'admin@admin.com', NULL, '$2y$10$8yS04NiM080zEokIbv6Oj.N7fOWgl32JRXToj/p2zv4iVGfXoNfOW', NULL, 1, 'MmPxrODyLCCzA2OcqHfMyfkFELOvrsOJziUikhBKPszyxTrG8LQOSe7dWmo8aTbE', NULL, '95.240.200.161', NULL, '68.188.182.172', '0.0.0.0', NULL, '2020-04-15 00:04:03', '2020-04-15 00:17:33', NULL),
-(2, 'bwilderman', 'Yesenia', 'Koss', 'user@user.com', NULL, '$2y$10$rFivKXjffqoyBIMOBcekVeV1yo/HQgQLZRg015.x.FYQOXXS3fLrC', NULL, 1, 'D0leTvvoApYxrGM6PDFmjUi5bb7mQMXqpIDpwOaGKPe3XfGuOYwVxsVhIfkTVteL', '1.239.51.15', '146.50.151.220', NULL, NULL, NULL, NULL, '2020-04-15 00:04:03', '2020-04-15 00:04:03', NULL),
-(3, 'temp', 'temp', 'user 1', 'user1@gmail.com', NULL, '$2y$10$u3nTUsj6LkC0mZuyuE06jO4zMr0H0iGgfemsfrB17d3IWnjyQecNq', NULL, 0, 'ESvL1zZf0ey7NrCBAGr9o6xQeCSK52fCwRLVOGpwBtfJHH68ndDwmtxHDg7hY39J', '0.0.0.0', NULL, NULL, NULL, NULL, NULL, '2020-04-15 00:10:59', '2020-04-15 00:10:59', NULL);
+(1, 'eliseo.hagenes', 'Tracy', 'Pouros', 'admin@admin.com', NULL, '$2y$10$/UKNVCamAUv9c4fuI1aeqeDX6KxaMooggd7FSCYdxqNkWT/4Iux..', NULL, 1, 'n2EUJlZZabSqIsNB6n1kAeEx5f3foOGidE4ln31y5xOc2wlMkqSfMSy4Hn6onNa7', NULL, '17.99.220.88', NULL, '42.137.246.61', '::1', NULL, '2020-04-24 01:42:55', '2020-04-25 03:58:47', NULL),
+(2, 'selina30', 'Marcos', 'Swift', 'user@user.com', NULL, '$2y$10$p7/dZUwK6i8Mf9tm/li7KO9xVnL2Mvz.ypfYm7zM2IjWYxPPcGf3y', NULL, 1, 'JrWXJinl4MMMf3RmwCaPJns3pyUQaA0tz7CJ2LRcFnsIVn7KdFl3TmuvdiZHhWMx', '115.232.16.31', '130.251.205.35', NULL, NULL, '::1', NULL, '2020-04-24 01:42:55', '2020-04-25 03:59:15', NULL);
 
 --
 -- Indexes for dumped tables
@@ -570,6 +572,12 @@ ALTER TABLE `laravel_logger_activity`
 -- Indexes for table `migrations`
 --
 ALTER TABLE `migrations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `notices`
+--
+ALTER TABLE `notices`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -689,13 +697,19 @@ ALTER TABLE `laravel_blocker_types`
 -- AUTO_INCREMENT for table `laravel_logger_activity`
 --
 ALTER TABLE `laravel_logger_activity`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
+--
+-- AUTO_INCREMENT for table `notices`
+--
+ALTER TABLE `notices`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `password_resets`
@@ -737,7 +751,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `role_user`
 --
 ALTER TABLE `role_user`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `social_logins`
@@ -755,7 +769,7 @@ ALTER TABLE `themes`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
