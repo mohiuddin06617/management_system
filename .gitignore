@@ -3,13 +3,9 @@ config/database.php
 .idea/*
 storage/framework/*
 storage/logs/*
-/public/hot
-/public/storage
 /storage/*.key
-/vendor
-/storage/debugbar
-/storage/framework
-/storage/users
+storage/debugbar/*
+storage/users/*
 
 # Debug Files
 npm-debug.log
