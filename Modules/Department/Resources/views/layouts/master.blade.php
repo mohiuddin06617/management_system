@@ -15,6 +15,9 @@
 
     <link rel="stylesheet" href="{{ asset('/assets/css/style.css')}}">
     <link rel="stylesheet" href="{{ asset('/assets/css/components.css')}}">
+
+    @stack('styles')
+
 </head>
 
 <body>
@@ -400,9 +403,6 @@
 
         <!-- Main Content -->
         <div class="main-content">
-
-
-
             <section class="section">
                 <div class="section-header">
                     <h1>@yield('header')</h1>
@@ -435,6 +435,8 @@
 <script src="{{ asset('/assets/js/stisla.js')}}"></script>
 
 <!-- JS Libraies -->
+
+@stack('scripts')
 
 <!-- Template JS File -->
 <script src="{{ asset('/assets/js/scripts.js')}}"></script>
