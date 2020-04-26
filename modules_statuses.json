@@ -1,5 +1,6 @@
 {
     "Blog": true,
     "Dashboard": true,
-    "Notice": true
+    "Notice": true,
+    "Department": true
 }
