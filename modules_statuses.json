@@ -1,4 +1,5 @@
 {
     "Blog": true,
-    "Dashboard": true
+    "Dashboard": true,
+    "Notice": true
 }
