@@ -12,4 +12,10 @@ class Department extends Model
     protected $fillable = ['name','description','logo_icon','status','create_by'];
 
 
+    public function users()
+    {
+        return $this->hasMany('App\User');
+    }
+
+
 }
