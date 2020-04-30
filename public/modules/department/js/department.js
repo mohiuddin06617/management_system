@@ -1005,6 +1005,16 @@ DELETE 	/photo/{photo} 	destroy 	photo.destroy
 
     // var moduleUrl = '{{route("department.index")}}';
 
+
+    if ($('#departmentTable').length > 0) {
+        $("#departmentTable").dataTable({
+            "columnDefs": [{
+                "targets": [6],
+                "orderable": false
+            }]
+        });
+    }
+
     let modalProperties = {
         actioUrl: '',
         actionType: "",
@@ -1030,11 +1040,9 @@ DELETE 	/photo/{photo} 	destroy 	photo.destroy
                     if (response.status == 200) {
                         $(modal).find(".modal-body").html(response.data);
                     }
-                })
-                .catch(function (error) {
+                }).catch(function (error) {
                     console.log(error);
-                })
-                .then(function () {
+                }).then(function () {
                     // always executed
                 });
         });
@@ -1076,11 +1084,15 @@ DELETE 	/photo/{photo} 	destroy 	photo.destroy
                 }
             })
             .then(function (response) {
-                //handle success
-                console.log(response);
-            })
-            .catch(function (error) {
-                if (typeof error.response.data.errors !== 'undefined') {
+                iziToast.success({
+                    title: 'Success',
+                    message: response.data.message,
+                    position: 'topRight'
+                });
+                $(modal).modal('hide')
+
+            }).catch(function (error) {
+                if (error.response)
                     if (typeof error.response.data.errors.depratment_name === 'undefined') {
                         $(modal).find('#name').addClass('is-valid');
                     } else {
@@ -1088,12 +1100,8 @@ DELETE 	/photo/{photo} 	destroy 	photo.destroy
                         $(modal).find('#name_message').html(error.response.data.errors.depratment_name);
                         $(modal).find('#name_message').addClass('invalid-feedback');
                     }
-                }
-
             }).then(function () {
                 $(modal).find("#btn-modal-save").html(modalProperties.buttonLabel);
             });
     });
-
-
 });

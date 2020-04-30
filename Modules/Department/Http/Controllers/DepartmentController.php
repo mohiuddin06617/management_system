@@ -13,8 +13,8 @@ class DepartmentController extends Controller {
      * Display a listing of the resource.
      * @return Response
      */
-    public function index() {
-        $departments = Department::with( 'creator' )->get();
+    public function index( Request $request ) {
+        $departments = Department::with( 'creator' )->latest()->get();
         return view( 'department::index', compact( 'departments' ) );
     }
 
@@ -37,17 +37,17 @@ class DepartmentController extends Controller {
             'depratment_name' => 'required|unique:departments,name|max:255',
         ] );
 
-        // if ( $validatedData->fails() ) {
-
-        // }
-
         $dept = new Department();
         $dept->name = $request->depratment_name;
         $dept->description = $request->description;
         $dept->logo_icon = $request->logo_icon;
         $dept->create_by = Auth::id();
-
         $dept->save();
+
+        return response()->json( [
+            'message' => 'Department Added Successfully !',
+        ] );
+
     }
 
     /**
