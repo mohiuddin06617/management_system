@@ -6,7 +6,8 @@
             <h1>{{__('Notices')}}</h1>
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item active"><a href="{{url('/')}}">{{__('Dashboard')}}</a></div>
-                <div class="breadcrumb-item">{{__('Create Notice')}}</div>
+                <div class="breadcrumb-item"><a href="{{route('notices.index')}}">{{__('Notice')}}</a></div>
+                <div class="breadcrumb-item active">{{__('Edit')}}</div>
             </div>
         </div>
         <div class="section-body">
@@ -14,27 +15,28 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4>{{__('Create Notices')}}</h4>
+                            <h4>{{__('Edit Notices')}}</h4>
                             <div class="card-header-action">
-                                <a href="{{route('index')}}" class="btn btn-primary">
+                                <a href="{{route('notices.index')}}" class="btn btn-primary">
                                     <i class="fas fa-list"></i>
                                     {{__('Notices')}}
                                 </a>
                             </div>
                         </div>
                         <div class="card-body">
-                            <form method="POST" action="{{route('store')}}" class="form-horizontal">
+                            <form method="post" action="{{route('notices.update',$notice)}}" class="form-horizontal">
                                 @csrf
+                                @method('PUT')
                                 <div class="form-group row">
                                     <label for="title" class="col-sm-3 col-form-label font-weight-bold text-md-right">{{__('Title')}} </label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="title" name="title" placeholder="{{__('Notice Title')}}"/>
+                                        <input type="text" class="form-control" id="title" name="title" placeholder="{{__('Notice Title')}}" value="{{$notice->title}}"/>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="description" class="col-sm-3 col-form-label font-weight-bold text-md-right">{{__('Description')}}</label>
                                     <div class="col-sm-9">
-                                        <textarea type="description" class="form-control summernote" rows="2" id="description" name="description" placeholder="{{__('Description')}}"></textarea>
+                                        <textarea type="description" class="form-control summernote" rows="2" id="description" name="description" placeholder="{{__('Description')}}"> {{$notice->description}}</textarea>
                                     </div>
                                 </div>
                                 <div class="form-group row">

@@ -16,7 +16,7 @@
                         <div class="card-header">
                             <h4>{{__('Manage Notices')}}</h4>
                             <div class="card-header-action">
-                                <a href="{{route('create')}}" class="btn btn-primary">
+                                <a href="{{route('notices.create')}}" class="btn btn-primary">
                                     <i class="fas fa-plus-circle"></i>
                                     {{__('Create New')}}
                                 </a>
@@ -42,17 +42,28 @@
                                         @foreach($notices as  $key => $notice)
                                             <tr>
                                                 <td class="text-center align-middle">
-                                                    {{ $loop->iteration + $key }}
+                                                    {{ $loop->iteration }}
                                                 </td>
                                                 <td>{{$notice->title}}</td>
                                                 <td class="align-middle">
-                                                    {{$notice->description}}
+                                                    {!! $notice->description !!}
                                                 </td>
                                                 <td>{{$notice->created_at}}</td>
-                                                <td><a href="#" class="btn btn-info">
-                                                        <i class="fas fa-eye"></i>
-                                                        <span>{{__('Detail')}}</span>
-                                                    </a>
+                                                <td>
+                                                    <div class="btn-group">
+                                                        <a href="{{route('notices.edit',$notice->id)}}" class="btn btn-primary btn-sm">
+                                                            <i class="fas fa-pencil-alt"></i>
+                                                            <span>{{__('Edit')}}</span>
+                                                        </a>
+                                                        <form method="post" action="{{route('notices.destroy',$notice->id)}}">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" data-selected-value="{{$notice->id}}" class="btn btn-danger btn-sm delete-button">
+                                                                <i class="fas fa-trash"></i>
+                                                                <span>{{__('Delete')}}</span>
+                                                            </button>
+                                                        </form>
+                                                    </div>
                                                 </td>
                                             </tr>
 

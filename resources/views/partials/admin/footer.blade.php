@@ -13,6 +13,8 @@
 <script src="{{asset('assets/modules/jqvmap/dist/maps/jquery.vmap.world.js')}}"></script>
 <script src="{{asset('assets/modules/summernote/dist/summernote-bs4.js')}}"></script>
 <script src="{{asset('assets/modules/chocolat/dist/js/jquery.chocolat.min.js')}}"></script>
+<script src="{{asset('assets/modules/select2/dist/js/select2.full.min.js')}}"></script>
+<script src="{{asset('assets/modules/axios/dist/axios.min.js')}}"></script>
 
 <!-- Template JS File -->
 <script src="{{asset('assets/js/scripts.js')}}"></script>

@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="{{asset('assets/modules/weathericons/css/weather-icons.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/modules/weathericons/css/weather-icons-wind.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/modules/summernote/dist/summernote-bs4.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/modules/select2/dist/css/select2.min.css')}}">
 
     @stack('stylesheets')
     <!-- Template CSS -->

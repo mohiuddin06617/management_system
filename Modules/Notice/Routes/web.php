@@ -11,7 +11,9 @@
 |
 */
 
-Route::prefix('notices')->group(function() {
+Route::resource('notices', 'NoticeController');
+
+/*Route::prefix('notices')->group(function() {
 //    Route::get('/', 'NoticeController@index');
     Route::resource('', 'NoticeController');
-});
+});*/
