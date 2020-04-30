@@ -2,20 +2,19 @@
 
 namespace Modules\Department\Entities;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Department extends Model
-{
+class Department extends Model {
     use SoftDeletes;
 
-    protected $fillable = ['name','description','logo_icon','status','create_by'];
+    protected $table = 'departments';
 
+    protected $fillable = ['name', 'description', 'logo_icon', 'status', 'create_by'];
 
-    public function users()
-    {
-        return $this->hasMany('App\User');
+    public function creator() {
+        return $this->belongsTo( User::class, 'create_by' );
     }
-
 
 }

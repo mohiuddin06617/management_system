@@ -9,8 +9,8 @@
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
+ */
 
-Route::prefix('department')->group(function() {
-    Route::resource('', 'DepartmentController');
-});
+//Route::prefix('department')->group(function() {
+Route::resource( 'department', 'DepartmentController' );
+//});

@@ -5,27 +5,25 @@ namespace Modules\Department\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Modules\Department\Entities\Department;
 
-class DepartmentController extends Controller
-{
+class DepartmentController extends Controller {
     /**
      * Display a listing of the resource.
      * @return Response
      */
-    public function index()
-    {
-        $departments = Department::all();
-        return view('department::index',compact('departments'));
+    public function index() {
+        $departments = Department::with( 'creator' )->get();
+        return view( 'department::index', compact( 'departments' ) );
     }
 
     /**
      * Show the form for creating a new resource.
      * @return Response
      */
-    public function create()
-    {
-        return view('department::create');
+    public function create() {
+        return view( 'department::create' );
     }
 
     /**
@@ -33,9 +31,23 @@ class DepartmentController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store( Request $request ) {
+
+        $validatedData = $request->validate( [
+            'depratment_name' => 'required|unique:departments,name|max:255',
+        ] );
+
+        // if ( $validatedData->fails() ) {
+
+        // }
+
+        $dept = new Department();
+        $dept->name = $request->depratment_name;
+        $dept->description = $request->description;
+        $dept->logo_icon = $request->logo_icon;
+        $dept->create_by = Auth::id();
+
+        $dept->save();
     }
 
     /**
@@ -43,9 +55,8 @@ class DepartmentController extends Controller
      * @param int $id
      * @return Response
      */
-    public function show($id)
-    {
-        return view('department::show');
+    public function show( $id ) {
+        return view( 'department::show' );
     }
 
     /**
@@ -53,9 +64,8 @@ class DepartmentController extends Controller
      * @param int $id
      * @return Response
      */
-    public function edit($id)
-    {
-        return view('department::edit');
+    public function edit( $id ) {
+        return view( 'department::edit' );
     }
 
     /**
@@ -64,8 +74,7 @@ class DepartmentController extends Controller
      * @param int $id
      * @return Response
      */
-    public function update(Request $request, $id)
-    {
+    public function update( Request $request, $id ) {
         //
     }
 
@@ -74,8 +83,7 @@ class DepartmentController extends Controller
      * @param int $id
      * @return Response
      */
-    public function destroy($id)
-    {
+    public function destroy( $id ) {
         //
     }
 }
