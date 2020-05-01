@@ -1,5 +1,8 @@
-<form method="POST" action="{{route('department.store')}}">
-    {{--        <p>This login form is taken from elements with <code>#modal-login-part</code> id.</p>--}}
+<form method="POST" action="{{route('department.update',$department->id)}}">
+    {{-- @method('PUT') --}}
+    @csrf
+    @method('PATCH')
+
     <div class="form-group">
         <label>Department Name</label>
         <div class="input-group">
@@ -8,7 +11,8 @@
                     <i class="fas fa-building"></i>
                 </div>
             </div>
-            <input type="text" class="form-control" placeholder="Department Name" id="name" name="name">
+            <input type="text" class="form-control" value="{{$department->name}}" placeholder="Department Name"
+                id="name" name="name">
             <div id="name_message"></div>
         </div>
 
@@ -21,7 +25,8 @@
                     <i class="fas fa-marker"></i>
                 </div>
             </div>
-            <input type="text" class="form-control" placeholder="Icon" id="logo_icon" name="logo_icon">
+            <input type="text" class="form-control" value="{{$department->logo_icon}}" placeholder="Icon" id="logo_icon"
+                name="logo_icon">
         </div>
         <div id="logo_icon_message"></div>
     </div>
@@ -34,7 +39,8 @@
                     <i class="fas fa-info"></i>
                 </div>
             </div>
-            <input type="text" class="form-control" placeholder="Description" id="description" name="description">
+            <input type="text" class="form-control" value="{{$department->description}}" placeholder="Description"
+                id="description" name="description">
         </div>
         <div id="description_message"></div>
     </div>

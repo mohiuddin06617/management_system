@@ -36,7 +36,9 @@ Departments
                         </div>
                     </div>
                     <div class="card-body">
-                        <table id="departmentTable" class=" table table-striped table-bordered" style="width:100%">
+
+                        <table data-url="{{route('department.index')}}" id="department-data-table"
+                            class="table table-bordered table-striped" style="width:100%">
                             <thead>
                                 <tr>
                                     <th>Serial</th>
@@ -49,46 +51,9 @@ Departments
                                 </tr>
                             </thead>
                             <tbody>
-                                @php
-                                $serial = 1;
-                                @endphp
-                                @foreach ($departments as $department)
-                                <tr>
-                                    <td>{{$serial++}}</td>
-                                    <td>{{$department->name}}</td>
-                                    <td>{{$department->description}}</td>
-                                    <td>
-                                        <div
-                                            class="badge {{($department->status == 'Active')?'badge-success':'badge-danger'}}">
-                                            {{$department->status}}
-                                        </div>
-                                    </td>
-                                    <td>{{$department->creator->name}}</td>
-                                    <td>{{date('d-m-Y', strtotime($department->created_at))}}</td>
-                                    <td>
-                                        <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-                                            <button type="button"
-                                                class="btn btn-success btn-icon btn-department-details"
-                                                data-toggle="tooltip" data-placement="top" title=""
-                                                data-original-title="Details" data-id="{{$department->id}}">
-                                                <i class="fas fa-info-circle"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-warning btn-icon btn-department-edit"
-                                                data-toggle="tooltip" data-placement="top" title=""
-                                                data-original-title="Edit" data-id="{{$department->id}}">
-                                                <i class="far fa-edit"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-danger btn-icon btn-department-delete"
-                                                data-toggle="tooltip" data-placement="top" title=""
-                                                data-original-title="Delete" data-id="{{$department->id}}">
-                                                <i class="fas fa-trash"></i></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                @endforeach
                             </tbody>
                         </table>
+
                     </div>
                 </div>
             </div>

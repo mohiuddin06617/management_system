@@ -16,6 +16,7 @@ return array(
     'jeremykenedy\\LaravelLogger\\' => array($vendorDir . '/jeremykenedy/laravel-logger/src'),
     'jeremykenedy\\LaravelHttps\\' => array($vendorDir . '/jeremykenedy/laravel-https/src'),
     'jeremykenedy\\LaravelBlocker\\' => array($vendorDir . '/jeremykenedy/laravel-blocker/src'),
+    'Yajra\\DataTables\\' => array($vendorDir . '/yajra/laravel-datatables-oracle/src'),
     'XdgBaseDir\\' => array($vendorDir . '/dnoegel/php-xdg-base-dir/src'),
     'Whoops\\' => array($vendorDir . '/filp/whoops/src/Whoops'),
     'Webmozart\\Assert\\' => array($vendorDir . '/webmozart/assert/src'),

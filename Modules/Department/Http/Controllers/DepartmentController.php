@@ -2,6 +2,7 @@
 
 namespace Modules\Department\Http\Controllers;
 
+use DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
@@ -14,8 +15,46 @@ class DepartmentController extends Controller {
      * @return Response
      */
     public function index( Request $request ) {
-        $departments = Department::with( 'creator' )->latest()->get();
-        return view( 'department::index', compact( 'departments' ) );
+
+        if ( $request->ajax() ) {
+            $departments = Department::with( 'creator' )->latest()->get(); //User::latest()->get();
+            return Datatables::of( $departments )
+                ->addIndexColumn()
+                ->editColumn( 'status', function ( $row ) {
+                    $status = '<div class="badge ' . (  ( $row->status == 'Active' ) ? 'badge-success' : 'badge-danger' ) . '">' . $row->status . '</div>';
+                    return $status;
+                } )
+                ->editColumn( 'create_by', function ( $row ) {
+                    return $row->creator->name;
+                } )
+                ->editColumn( 'created_at', function ( $row ) {
+                    return date( 'd-m-Y', strtotime( $row->created_at ) );
+                } )
+                ->addColumn( 'action', function ( $row ) {
+                    $btn = '<div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                    <button type="button" class="btn btn-success btn-icon btn-department-details"
+                                    data-toggle="tooltip" data-placement="top" title="" data-original-title="Details"
+                                    data-id="' . $row->id . '" data-details="' . route( 'department.edit', $row->id ) . '">
+                                    <i class="fas fa-info-circle"></i>
+                                </button>
+                                <button type="button" class="btn btn-warning btn-icon btn-edit-department"
+                                    data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"
+                                    data-edit="' . route( 'department.edit', $row->id ) . '">
+                                    <i class="far fa-edit"></i>
+                                </button>
+                                <button type="button" class="btn btn-danger btn-icon btn-delete-department"
+                                    data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"
+                                    data-id="' . $row->id . '" data-delete="' . route( 'department.edit', $row->id ) . '">
+                                    <i class="fas fa-trash"></i></i>
+                                </button>
+                            </div>';
+
+                    return $btn;
+                } )
+                ->rawColumns( ['status', 'action'] )
+                ->make( true );
+        }
+        return view( 'department::index' );
     }
 
     /**
@@ -34,11 +73,11 @@ class DepartmentController extends Controller {
     public function store( Request $request ) {
 
         $validatedData = $request->validate( [
-            'depratment_name' => 'required|unique:departments,name|max:255',
+            'name' => 'required|unique:departments,name|max:255',
         ] );
 
         $dept = new Department();
-        $dept->name = $request->depratment_name;
+        $dept->name = $request->name;
         $dept->description = $request->description;
         $dept->logo_icon = $request->logo_icon;
         $dept->create_by = Auth::id();
@@ -65,7 +104,8 @@ class DepartmentController extends Controller {
      * @return Response
      */
     public function edit( $id ) {
-        return view( 'department::edit' );
+        $department = Department::find( $id );
+        return view( 'department::edit', compact( 'department' ) );
     }
 
     /**
@@ -75,7 +115,26 @@ class DepartmentController extends Controller {
      * @return Response
      */
     public function update( Request $request, $id ) {
-        //
+        // $request->validate( [
+        //     'first_name' => 'required',
+        //     'last_name'  => 'required',
+        //     'email'      => 'required',
+        // ] );
+
+        // $validatedData = $request->validate( [
+        //     'name' => 'required|unique:departments,name|max:255',
+        // ] );
+
+        dd( $request->all() );
+
+        $contact = Contact::find( $id );
+        $contact->first_name = $request->get( 'first_name' );
+        $contact->last_name = $request->get( 'last_name' );
+        $contact->email = $request->get( 'email' );
+        $contact->job_title = $request->get( 'job_title' );
+        $contact->city = $request->get( 'city' );
+        $contact->country = $request->get( 'country' );
+        $contact->save();return redirect( '/contacts' )->with( 'success', 'Contact updated!' );
     }
 
     /**
