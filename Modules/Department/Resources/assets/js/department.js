@@ -69,6 +69,17 @@ $(document).ready(function () {
     }
   }
 
+  function arrayToJson(form) {
+    var data = $(form).serializeArray();
+    var indexed_array = {};
+
+    $.map(data, function (n, i) {
+      indexed_array[n["name"]] = n["value"];
+    });
+
+    return indexed_array;
+  }
+
   function loadModal() {
     renderModal();
     $(modal).modal();
@@ -175,11 +186,13 @@ $(document).ready(function () {
 
     let actionUrl = $(modal).find("form").attr("action");
 
-    var deptdata = {
-      name: $(modal).find("#name").val(),
-      logo_icon: $(modal).find("#logo_icon").val(),
-      description: $(modal).find("#description").val(),
-    };
+    // var deptdata = {
+    //   name: $(modal).find("#name").val(),
+    //   logo_icon: $(modal).find("#logo_icon").val(),
+    //   description: $(modal).find("#description").val(),
+    // };
+
+    var deptdata = arrayToJson($(modal).find("form"));
 
     if (modalProperties.actionType == "Edit") {
       deptdata.status = $(modal).find("#status").val();
