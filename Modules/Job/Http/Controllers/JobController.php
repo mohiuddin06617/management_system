@@ -1,27 +1,26 @@
 <?php
 
-namespace Modules\Department\Http\Controllers;
+namespace Modules\Job\Http\Controllers;
 
 use DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
-use Modules\Department\Entities\Department;
+use Modules\Job\Entities\Job;
 
-class DepartmentController extends Controller {
+class JobController extends Controller {
     /**
      * Display a listing of the resource.
      * @return Response
      */
     public function index( Request $request ) {
-
         if ( $request->ajax() ) {
-            $departments = Department::with( 'creator' )->latest()->get();
-            return Datatables::of( $departments )
+            $jobs = Job::with( 'creator' )->latest()->get();
+            return Datatables::of( $jobs )
                 ->addIndexColumn()
                 ->editColumn( 'status', function ( $row ) {
-                    return view( 'department::parts.status', compact( 'row' ) );
+                    return view( 'job::parts.status', compact( 'row' ) );
                 } )
                 ->editColumn( 'create_by', function ( $row ) {
                     return $row->creator->name;
@@ -30,12 +29,12 @@ class DepartmentController extends Controller {
                     return date( 'd-m-Y', strtotime( $row->created_at ) );
                 } )
                 ->addColumn( 'action', function ( $row ) {
-                    return view( 'department::parts.action', compact( 'row' ) );
+                    return view( 'job::parts.action', compact( 'row' ) );
                 } )
                 ->rawColumns( ['status', 'action'] )
                 ->make( true );
         }
-        return view( 'department::index' );
+        return view( 'job::index' );
     }
 
     /**
@@ -43,7 +42,7 @@ class DepartmentController extends Controller {
      * @return Response
      */
     public function create() {
-        return view( 'department::create' );
+        return view( 'job::create' );
     }
 
     /**
@@ -52,20 +51,18 @@ class DepartmentController extends Controller {
      * @return Response
      */
     public function store( Request $request ) {
-
         $validatedData = $request->validate( [
-            'name' => 'required|unique:departments,name|max:255',
+            'title' => 'required|unique:jobs,title|max:255',
         ] );
 
-        $dept = new Department();
-        $dept->name = $request->name;
-        $dept->description = $request->description;
-        $dept->logo_icon = $request->logo_icon;
-        $dept->create_by = Auth::id();
-        $dept->save();
+        $job = new Job();
+        $job->title = $request->title;
+        $job->description = $request->description;
+        $job->create_by = Auth::id();
+        $job->save();
 
         return response()->json( [
-            'message' => 'Department Added Successfully !',
+            'message' => 'Job Added Successfully !',
         ] );
 
     }
@@ -76,8 +73,7 @@ class DepartmentController extends Controller {
      * @return Response
      */
     public function show( $id ) {
-        // $department = Department::with( 'creator' )->find( $id );
-        // return view( 'department::show', compact( 'department' ) );
+        return view( 'job::show' );
     }
 
     /**
@@ -86,8 +82,8 @@ class DepartmentController extends Controller {
      * @return Response
      */
     public function edit( $id ) {
-        $department = Department::find( $id );
-        return view( 'department::edit', compact( 'department' ) );
+        $job = Job::find( $id );
+        return view( 'job::edit', compact( 'job' ) );
     }
 
     /**
@@ -97,23 +93,21 @@ class DepartmentController extends Controller {
      * @return Response
      */
     public function update( Request $request, $id ) {
+        $job = Job::find( $id );
 
-        $department = Department::find( $id );
-
-        if ( $department->name != $request->name ) {
+        if ( $job->name != $request->name ) {
             $validatedData = $request->validate( [
-                'name' => 'required|unique:departments,name|max:255',
+                'title' => 'required|unique:jobs,title|max:255',
             ] );
         }
 
-        $department->name = $request->get( 'name' );
-        $department->logo_icon = $request->get( 'logo_icon' );
-        $department->status = $request->get( 'status' );
-        $department->description = $request->get( 'description' );
-        $department->save();
+        $job->title = $request->get( 'title' );
+        $job->status = $request->get( 'status' );
+        $job->description = $request->get( 'description' );
+        $job->save();
 
         return response()->json( [
-            'message' => 'Department Updated Successfully !',
+            'message' => 'Job Updated Successfully !',
         ] );
     }
 
@@ -123,10 +117,10 @@ class DepartmentController extends Controller {
      * @return Response
      */
     public function destroy( $id ) {
-        $department = Department::find( $id );
-        $department->delete();
+        $job = Job::find( $id );
+        $job->delete();
         return response()->json( [
-            'message' => 'Department Deleted Successfully !',
+            'message' => 'Job Deleted Successfully !',
         ] );
     }
 }
