@@ -1,0 +1,1 @@
+<div class="badge {{(( $row->status == 'Active' ) ? 'badge-success' : 'badge-danger' )}} ">{{$row->status}}</div>

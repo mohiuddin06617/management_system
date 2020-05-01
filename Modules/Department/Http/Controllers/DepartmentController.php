@@ -21,8 +21,7 @@ class DepartmentController extends Controller {
             return Datatables::of( $departments )
                 ->addIndexColumn()
                 ->editColumn( 'status', function ( $row ) {
-                    $status = '<div class="badge ' . (  ( $row->status == 'Active' ) ? 'badge-success' : 'badge-danger' ) . '">' . $row->status . '</div>';
-                    return $status;
+                    return view( 'department::parts.status', compact( 'row' ) );
                 } )
                 ->editColumn( 'create_by', function ( $row ) {
                     return $row->creator->name;
@@ -31,7 +30,7 @@ class DepartmentController extends Controller {
                     return date( 'd-m-Y', strtotime( $row->created_at ) );
                 } )
                 ->addColumn( 'action', function ( $row ) {
-                    return view( 'department::action', compact( 'row' ) );
+                    return view( 'department::parts.action', compact( 'row' ) );
                 } )
                 ->rawColumns( ['status', 'action'] )
                 ->make( true );
