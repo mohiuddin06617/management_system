@@ -142,7 +142,7 @@ $(document).ready(function () {
                     message: response.data.message,
                     position: "topRight",
                 });
-                departmentDataTable.draw();
+                departmentDataTable.draw(false);
                 $(modal).modal("hide");
             })
             .catch(function (error) {
