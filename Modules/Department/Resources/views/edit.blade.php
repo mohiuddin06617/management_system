@@ -1,8 +1,4 @@
 <form action="{{route('department.update',$department->id)}}">
-    {{-- @method('PUT') --}}
-    {{-- @csrf
-    @method('PATCH') --}}
-
     @csrf
     @method('PUT')
 
