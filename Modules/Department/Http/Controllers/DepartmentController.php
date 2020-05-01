@@ -31,12 +31,19 @@ class DepartmentController extends Controller {
                     return date( 'd-m-Y', strtotime( $row->created_at ) );
                 } )
                 ->addColumn( 'action', function ( $row ) {
+
+                    /**
+
+                <button type="button" class="btn btn-success btn-icon btn-department-details"
+                data-toggle="tooltip" data-placement="top" title="" data-original-title="Details"
+                data-id="' . $row->id . '" data-details="' . route( 'department.show', $row->id ) . '">
+                <i class="fas fa-info-circle"></i>
+                </button>
+
+                 */
+
                     $btn = '<div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-                    <button type="button" class="btn btn-success btn-icon btn-department-details"
-                                    data-toggle="tooltip" data-placement="top" title="" data-original-title="Details"
-                                    data-id="' . $row->id . '" data-details="' . route( 'department.edit', $row->id ) . '">
-                                    <i class="fas fa-info-circle"></i>
-                                </button>
+
                                 <button type="button" class="btn btn-warning btn-icon btn-edit-department"
                                     data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"
                                     data-edit="' . route( 'department.edit', $row->id ) . '">
@@ -44,7 +51,7 @@ class DepartmentController extends Controller {
                                 </button>
                                 <button type="button" class="btn btn-danger btn-icon btn-delete-department"
                                     data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"
-                                    data-id="' . $row->id . '" data-delete="' . route( 'department.edit', $row->id ) . '">
+                                    data-id="' . $row->id . '" data-delete="' . route( 'department.destroy', $row->id ) . '">
                                     <i class="fas fa-trash"></i></i>
                                 </button>
                             </div>';
@@ -95,7 +102,8 @@ class DepartmentController extends Controller {
      * @return Response
      */
     public function show( $id ) {
-        return view( 'department::show' );
+        // $department = Department::with( 'creator' )->find( $id );
+        // return view( 'department::show', compact( 'department' ) );
     }
 
     /**
@@ -126,6 +134,7 @@ class DepartmentController extends Controller {
 
         $department->name = $request->get( 'name' );
         $department->logo_icon = $request->get( 'logo_icon' );
+        $department->status = $request->get( 'status' );
         $department->description = $request->get( 'description' );
         $department->save();
 
@@ -140,6 +149,10 @@ class DepartmentController extends Controller {
      * @return Response
      */
     public function destroy( $id ) {
-        //
+        $department = Department::find( $id );
+        $department->delete();
+        return response()->json( [
+            'message' => 'Department Deleted Successfully !',
+        ] );
     }
 }

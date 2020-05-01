@@ -8,6 +8,7 @@ Departments
 <link rel="stylesheet" href="{{asset('assets/modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css')}}" />
 <link rel="stylesheet" href="{{asset('assets/modules/datatables.net-select-bs4/css/select.bootstrap4.min.css')}}" />
 <link rel="stylesheet" href="{{asset('assets/modules/izitoast/dist/css/iziToast.min.css')}}" />
+
 {{-- <link rel="stylesheet" href="{{ asset('department:css/department.css') }}"> --}}
 @endpush
 
@@ -41,13 +42,13 @@ Departments
                             class="table table-bordered table-striped" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th>Serial</th>
-                                    <th>Department Name</th>
-                                    <th>Description</th>
-                                    <th>Status</th>
-                                    <th>Create By</th>
-                                    <th>Create Date</th>
-                                    <th>Action</th>
+                                    <th>{{__('Serial')}}</th>
+                                    <th>{{__('Department Name')}}</th>
+                                    <th>{{__('Description')}}</th>
+                                    <th>{{__('Status')}}</th>
+                                    <th>{{__('Create By')}}</th>
+                                    <th>{{__('Create Date')}}</th>
+                                    <th>{{__('Action')}}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -64,9 +65,15 @@ Departments
 
 @push('scripts')
 <script src="{{asset('assets/modules/datatables/media/js/jquery.dataTables.min.js')}}"></script>
-<script src="{{asset('assets/modules/datatables.net-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
-<script src="{{asset('assets/modules/datatables.net-select-bs4/js/select.bootstrap4.min.js')}}"></script>
-<script src="{{asset('assets/modules/datatables.net-select-bs4/js/select.bootstrap4.min.js')}}"></script>
-<script src="{{asset('assets/modules/izitoast/dist/js/iziToast.min.js')}}"></script>
+<script src="{{asset('assets/modules/datatables.net-bs4/js/dataTables.bootstrap4.min.js')}}">
+</script>
+<script src="{{asset('assets/modules/datatables.net-select-bs4/js/select.bootstrap4.min.js')}}">
+</script>
+<script src="{{asset('assets/modules/datatables.net-select-bs4/js/select.bootstrap4.min.js')}}">
+</script>
+<script src="{{asset('assets/modules/izitoast/dist/js/iziToast.min.js')}}">
+</script>
+<script src="{{asset('assets/modules/sweetalert/dist/sweetalert.min.js')}}">
+</script>
 <script src="{{ Module::asset('department:js/department.js') }}"></script>
 @endpush
