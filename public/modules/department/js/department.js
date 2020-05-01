@@ -112,19 +112,25 @@ $(document).ready(function () {
 
         let actionUrl = $(modal).find("form").attr("action");
 
-        var deptdata = new FormData();
-        deptdata.set("name", $(modal).find("#name").val());
-        deptdata.set("logo_icon", $(modal).find("#logo_icon").val());
-        deptdata.set("description", $(modal).find("#description").val());
+        //var deptdata = new FormData();
+        // deptdata.set("name", $(modal).find("#name").val());
+        // deptdata.set("logo_icon", $(modal).find("#logo_icon").val());
+        // deptdata.set("description", $(modal).find("#description").val());
 
-        //console.log($(modal).find("#name").val());
+        var deptdata = {
+            'name': $(modal).find("#name").val(),
+            'logo_icon': $(modal).find("#logo_icon").val(),
+            'description': $(modal).find("#description").val()
+        }
 
         axios({
                 method: modalProperties.methodType,
-                //_method: "patch",
                 url: actionUrl,
                 data: deptdata,
                 config: {
+                    // headers: {
+                    //     'X-Requested-With': 'XMLHttpRequest'
+                    // },
                     headers: {
                         "Content-Type": "multipart/form-data",
                     },

@@ -1,7 +1,10 @@
-<form method="POST" action="{{route('department.update',$department->id)}}">
+<form action="{{route('department.update',$department->id)}}">
     {{-- @method('PUT') --}}
+    {{-- @csrf
+    @method('PATCH') --}}
+
     @csrf
-    @method('PATCH')
+    @method('PUT')
 
     <div class="form-group">
         <label>Department Name</label>

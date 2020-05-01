@@ -115,26 +115,23 @@ class DepartmentController extends Controller {
      * @return Response
      */
     public function update( Request $request, $id ) {
-        // $request->validate( [
-        //     'first_name' => 'required',
-        //     'last_name'  => 'required',
-        //     'email'      => 'required',
-        // ] );
 
-        // $validatedData = $request->validate( [
-        //     'name' => 'required|unique:departments,name|max:255',
-        // ] );
+        $department = Department::find( $id );
 
-        dd( $request->all() );
+        if ( $department->name != $request->name ) {
+            $validatedData = $request->validate( [
+                'name' => 'required|unique:departments,name|max:255',
+            ] );
+        }
 
-        $contact = Contact::find( $id );
-        $contact->first_name = $request->get( 'first_name' );
-        $contact->last_name = $request->get( 'last_name' );
-        $contact->email = $request->get( 'email' );
-        $contact->job_title = $request->get( 'job_title' );
-        $contact->city = $request->get( 'city' );
-        $contact->country = $request->get( 'country' );
-        $contact->save();return redirect( '/contacts' )->with( 'success', 'Contact updated!' );
+        $department->name = $request->get( 'name' );
+        $department->logo_icon = $request->get( 'logo_icon' );
+        $department->description = $request->get( 'description' );
+        $department->save();
+
+        return response()->json( [
+            'message' => 'Department Updated Successfully !',
+        ] );
     }
 
     /**
